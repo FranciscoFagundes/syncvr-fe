@@ -17,7 +17,7 @@ function App() {
 
   const getFibonnaci = async (numberPosition) => {
     try {
-      const response = await fetch('https://syncvr-challenge.herokuapp.com/numberPosition?number=' + numberPosition, {
+      const response = await fetch('http://localhost:3000/numberPosition?number=' + numberPosition, {
         method: 'POST',
         headers: {
           Accept: 'application/json',
@@ -33,7 +33,7 @@ function App() {
 
   const getList = async () => {
     try {
-      const response = await fetch('https://syncvr-challenge.herokuapp.com/getList');
+      const response = await fetch('http://localhost:3000/getList');
       const data = await response.json();
       setData(data);
     } catch (error) {
