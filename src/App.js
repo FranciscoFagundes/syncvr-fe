@@ -58,6 +58,9 @@ function App() {
         <div className="search">
           <div className="row">
             <div className="col">
+              <img className="fibonacci-image" alt="Fibonnaci" src={require('./img/Fibonacci.jpeg')} />
+            </div>
+            <div className="col">
               <label> Type the number position on Fibonacci Sequence</label>
             </div>
             <div className="col">

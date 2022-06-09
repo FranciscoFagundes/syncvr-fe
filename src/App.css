@@ -14,7 +14,9 @@
   padding: 30px;
   text-align: center;
 }
-
+.fibonacci-image{
+  width: 50%;
+}
 .search {
   width: 500px;
 }
