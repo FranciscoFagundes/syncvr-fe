@@ -1,5 +1,4 @@
 import { useState, useEffect } from 'react';
-import { Container } from 'react-bootstrap';
 import axios from 'axios';
 import './App.css';
 function App() {
@@ -34,7 +33,6 @@ function App() {
       await axios.get('https://syncvr-challenge.herokuapp.com/getList')
         .then(function (response) {
           setData(response.data);
-          //console.log(response);
         })
         .catch(function (error) {
           console.log(error);
@@ -62,11 +60,12 @@ function App() {
               <img className="fibonacci-image" alt="Fibonnaci" src={require('./img/Fibonacci.jpeg')} />
             </div>
             <div className="col">
-              <label> Type the number position on Fibonacci Sequence</label>
+              <h1> Type the number position on Fibonacci Sequence</h1>
             </div>
             <div className="col">
               <form onSubmit={buttonClick}>
                 <input
+                  className="input-search"
                   type="number"
                   value={numberPosition}
                   onChange={(e) => {
@@ -74,22 +73,22 @@ function App() {
                     setFibonacciNumber("");
                   }}
                 />
-                <input type="submit" />
+                <input className="button-search" type="submit" value="Search" />
               </form>
             </div>
             <div className="col">
-              <label> Number Position: {numberPosition}  </label>
+              <h2> Number Position: {numberPosition}  </h2>
             </div>
             <div className="col">
-              <label> Fibonacci Number: {fibonnaciNumber}  </label>
+              <h2> Fibonacci Number: {fibonnaciNumber}  </h2>
             </div>
           </div>
 
         </div>
       </div>
-      <Container>
-        <div>
-          <table className="darkTable">
+      <section>
+        <div className="tbl-header">
+          <table cellpadding="0" cellspacing="0" border="0">
             <thead>
               <tr>
                 <th>Number Position</th>
@@ -97,6 +96,10 @@ function App() {
                 <th>Requested Time and Date</th>
               </tr>
             </thead>
+          </table>
+        </div>
+        <div class="tbl-content">
+          <table cellpadding="0" cellspacing="0" border="0">
             <tbody>
               {
                 data.map((item, key) => {
@@ -107,7 +110,7 @@ function App() {
             </tbody>
           </table>
         </div>
-      </Container>
+      </section>
     </div>
 
   );
