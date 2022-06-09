@@ -1,7 +1,7 @@
-import './App.css';
 import { useState, useEffect } from 'react';
 import { Container } from 'react-bootstrap';
-
+import axios from 'axios';
+import './App.css';
 function App() {
 
 
@@ -17,15 +17,13 @@ function App() {
 
   const getFibonnaci = async (numberPosition) => {
     try {
-      const response = await fetch('https://syncvr-challenge.herokuapp.com//numberPosition?number=' + numberPosition, {
-        method: 'POST',
-        headers: {
-          Accept: 'application/json',
-          'Content-Type': 'application/json'
-        },
-      });
-      const json = await response.json();
-      setFibonacciNumber(json);
+      await axios.post('https://syncvr-challenge.herokuapp.com/numberPosition?number=' + numberPosition)
+        .then(function (response) {
+          setFibonacciNumber(response.data);
+        })
+        .catch(function (error) {
+          console.log(error);
+        })
     } catch (error) {
       console.error(error);
     }
@@ -33,9 +31,13 @@ function App() {
 
   const getList = async () => {
     try {
-      const response = await fetch('https://syncvr-challenge.herokuapp.com/getList');
-      const data = await response.json();
-      setData(data);
+      await axios.get('https://syncvr-challenge.herokuapp.com/getList')
+        .then(function (response) {
+          setData(response.data);
+        })
+        .catch(function (error) {
+          console.log(error);
+        })
     } catch (error) {
       console.error(error);
     }
@@ -43,7 +45,7 @@ function App() {
 
   useEffect(() => {
     getList();
-  }, [data]);
+  }, []);
 
   const formatDate = (date) => {
     let formatedDate = date.split("-");
@@ -52,11 +54,11 @@ function App() {
 
   return (
     <div className="App">
-      <div class="top-container">
+      <div className="top-container">
         <div className="search">
           <div className="row">
             <div className="col">
-              <label> Number position: {numberPosition}  </label>
+              <label> Type the number position on Fibonacci Sequence</label>
             </div>
             <div className="col">
               <form onSubmit={buttonClick}>
@@ -70,6 +72,9 @@ function App() {
                 />
                 <input type="submit" />
               </form>
+            </div>
+            <div className="col">
+              <label> Number Position: {numberPosition}  </label>
             </div>
             <div className="col">
               <label> Fibonacci Number: {fibonnaciNumber}  </label>
@@ -95,7 +100,7 @@ function App() {
             {
               data.map((item, key) => {
                 let date = item.requisition_date.toString().split("T");
-                return <tr><td>{item.number_position}</td> <td>{item.fibonacci_number}</td> <td>{date[1].split(".")[0]} {formatDate(date[0])}</td></tr>
+                return <tr key={key}><td>{item.number_position}</td><td>{item.fibonacci_number}</td><td>{date[1].split(".")[0]} {formatDate(date[0])}</td></tr>
               })
             }
           </tbody>
