@@ -83,31 +83,29 @@ function App() {
 
         </div>
       </div>
-      <Container fluid>
-
-
+      <Container>
+        <div>
+          <table className="darkTable">
+            <thead>
+              <tr>
+                <th>Number Position</th>
+                <th>Fibonacci Number</th>
+                <th>Requested Time and Date</th>
+              </tr>
+            </thead>
+            <tbody>
+              {
+                data.map((item, key) => {
+                  let date = item.requisition_date.toString().split("T");
+                  return <tr key={key}><td>{item.number_position}</td><td>{item.fibonacci_number}</td><td>{date[1].split(".")[0]} {formatDate(date[0])}</td></tr>
+                })
+              }
+            </tbody>
+          </table>
+        </div>
       </Container>
-      <div>
-        <table className="darkTable">
-          <thead>
-            <tr>
-              <th>Number Position</th>
-              <th>Fibonacci Number</th>
-              <th>Requested Time and Date</th>
-            </tr>
-          </thead>
-          <tbody>
-            {
-              data.map((item, key) => {
-                let date = item.requisition_date.toString().split("T");
-                return <tr key={key}><td>{item.number_position}</td><td>{item.fibonacci_number}</td><td>{date[1].split(".")[0]} {formatDate(date[0])}</td></tr>
-              })
-            }
-          </tbody>
-        </table>
-      </div>
-
     </div>
+
   );
 }
 
