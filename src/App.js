@@ -34,6 +34,7 @@ function App() {
       await axios.get('https://syncvr-challenge.herokuapp.com/getList')
         .then(function (response) {
           setData(response.data);
+          //console.log(response);
         })
         .catch(function (error) {
           console.log(error);
